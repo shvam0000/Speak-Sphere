@@ -18,8 +18,37 @@ app.use('/healthcheck', (req, res) => {
   });
 });
 
+app.post('/converse', (req, res) => {
+  const input = req.body.input;
+  const _prompt = `${input}`;
+  if (!_prompt) {
+    res.status(400).json({ error: 'Prompt missing' });
+  }
+
+  try {
+    async function main() {
+      const completion = await openai.completions.create({
+        model: 'gpt-3.5-turbo-instruct',
+        prompt: _prompt,
+        max_tokens: 100,
+        temperature: 0,
+      });
+
+      console.log(completion);
+      res.status(200).json({
+        res: completion,
+      });
+      console.log(_prompt);
+    }
+    main();
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});
+
 // Translate any text to english
-app.post('/translate', async (req, res) => {
+app.post('/translate', (req, res) => {
   const text = req.body.text;
   const _prompt = `Please translate this in English - ${text}`;
 
