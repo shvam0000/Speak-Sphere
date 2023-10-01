@@ -8,7 +8,7 @@ const ChatBot = () => {
       <div className="bg-white shadow-lg rounded-lg max-w-md">
         {/* Chatbot Header Div */}
         <div className="border-b-2 px-2 py-4">
-          <div className="inline-flex items-center">
+          <div className="flex justify-center items-center ">
             {/* Logo comes here */}
             <img
               src="https://cdn-icons-png.flaticon.com/512/2040/2040946.png"
