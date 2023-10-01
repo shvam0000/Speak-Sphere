@@ -1,3 +1,14 @@
+import { ChatBot } from './components/home';
+
 export default function Home() {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+  return (
+    <div className="flex">
+      <div className="w-1/2">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam, sit.
+      </div>
+      <div className="w-1/2">
+        <ChatBot />
+      </div>
+    </div>
+  );
 }
