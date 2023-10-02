@@ -6,6 +6,7 @@ import axios from 'axios';
 const ChatBot = () => {
   const [inputMessage, setInputMessage] = useState('');
   const [messageHistory, setMessageHistory] = useState<any>([]);
+  const [chatbotMessage, setChatbotMessage] = useState<any>([]);
 
   const handleInputChange = (event: {
     target: { value: React.SetStateAction<string> };
@@ -25,7 +26,8 @@ const ChatBot = () => {
         data: { input: inputMessage },
       })
         .then((response) => {
-          console.log(response.choices[0].text);
+          console.log(response.data.res.choices[0].text);
+          setChatbotMessage(response.data.res.choices[0].text);
         })
         .catch((err) => {
           console.log(err);
@@ -52,12 +54,6 @@ const ChatBot = () => {
         </div>
         {/* Chatbot Body Div */}
         <div className="h-80 flex flex-col space-y-4 max-w-md px-2 mb-2 mt-2 overflow-y-scroll">
-          {/* Chatbot text */}
-          <div className="flex flex-col items-start">
-            <span className="bg-blue-500 px-4 py-2 text-white  rounded-b-xl rounded-tl-xl mb-2 mt-2">
-              How I can Help?
-            </span>
-          </div>
           {/* Chatbot User Text */}
           <div className="flex flex-col items-end">
             {/* @ts-ignore */}
@@ -70,6 +66,14 @@ const ChatBot = () => {
                 {message.text}
               </div>
             ))}
+          </div>
+          {/* Chatbot text */}
+          <div className="flex flex-col items-start">
+            {chatbotMessage && (
+              <span className="bg-blue-500 px-4 py-2 text-white  rounded-b-xl rounded-tl-xl mb-2 mt-2">
+                {chatbotMessage}
+              </span>
+            )}
           </div>
         </div>
         {/* Chatbot footer Div */}
