@@ -20,7 +20,7 @@ export default function NavBar() {
             </figure>
             <Link href="/">
               <h2 className="text-3xl font-bold text-primary-black">
-                Query Fuel
+                Speak Sphere
               </h2>
             </Link>
             <div className="md:hidden">
@@ -64,9 +64,9 @@ export default function NavBar() {
               navbar ? 'block' : 'hidden'
             }`}>
             <ul className="items-center  justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-              <li className="text-gray-500 text-xl font-bold hover:text-primary-black">
+              {/* <li className="text-gray-500 text-xl font-bold hover:text-primary-black">
                 <Link href="/">Home</Link>
-              </li>
+              </li> */}
               {user && (
                 <>
                   <li className="text-gray-500 text-xl font-bold hover:text-primary-black">
@@ -77,9 +77,9 @@ export default function NavBar() {
                   </li>
                 </>
               )}
-              <li className="text-gray-500 text-xl font-bold hover:text-primary-black">
+              {/* <li className="text-gray-500 text-xl font-bold hover:text-primary-black">
                 <Link href="/contact-us">Contact US</Link>
-              </li>
+              </li> */}
             </ul>
 
             <div className="mt-3 space-y-2 lg:hidden md:inline-block">

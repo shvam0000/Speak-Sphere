@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const PORT = 8080;
 require('dotenv').config();
 const bodyParser = require('body-parser');
 const OpenAI = require('openai');
@@ -64,7 +63,8 @@ app.post('/translate', (req, res) => {
         max_tokens: 100,
         temperature: 0,
       });
-
+      const textValue = completion.message.choices[0].text;
+      res.status(200).json({ message: textValue });
       console.log(completion);
       console.log(_prompt);
     }
@@ -75,6 +75,7 @@ app.post('/translate', (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
