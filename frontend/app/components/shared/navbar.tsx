@@ -1,13 +1,9 @@
 'use client';
 import { useState } from 'react';
-import { Button } from './';
 import Link from 'next/link';
-import { useUser } from '@auth0/nextjs-auth0/client';
 import { Logo } from '@/app/utils/icons';
 
 export default function NavBar() {
-  const { user, error, isLoading } = useUser();
-
   const [navbar, setNavbar] = useState(false);
 
   return (
@@ -62,64 +58,7 @@ export default function NavBar() {
           <div
             className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
               navbar ? 'block' : 'hidden'
-            }`}>
-            <ul className="items-center  justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-              {/* <li className="text-gray-500 text-xl font-bold hover:text-primary-black">
-                <Link href="/">Home</Link>
-              </li> */}
-              {user && (
-                <>
-                  <li className="text-gray-500 text-xl font-bold hover:text-primary-black">
-                    <Link href="/announcement">Announcement</Link>
-                  </li>
-                  <li className="text-gray-500 text-xl font-bold hover:text-primary-black">
-                    <Link href="/feed">Feed</Link>
-                  </li>
-                </>
-              )}
-              {/* <li className="text-gray-500 text-xl font-bold hover:text-primary-black">
-                <Link href="/contact-us">Contact US</Link>
-              </li> */}
-            </ul>
-
-            <div className="mt-3 space-y-2 lg:hidden md:inline-block">
-              {/* //! TODO: To add email verification  */}
-              {user ? (
-                <div className="flex items-center">
-                  <h1 className="px-2">Welcome, {user.name}</h1>
-                  <Link href="api/auth/logout">
-                    <Button type="primary">
-                      <span>Sign out</span>
-                    </Button>
-                  </Link>
-                </div>
-              ) : (
-                <Link href="/api/auth/login">
-                  <Button type="primary">
-                    <span>Sign in</span>
-                  </Button>
-                </Link>
-              )}
-            </div>
-          </div>
-        </div>
-        <div className="hidden space-x-2 md:flex ">
-          {user ? (
-            <div className="flex items-center">
-              <h1 className="px-2">Welcome, {user.name}</h1>
-              <Link href="api/auth/logout">
-                <Button type="primary">
-                  <span>Sign out</span>
-                </Button>
-              </Link>
-            </div>
-          ) : (
-            <Link href="/api/auth/login">
-              <Button type="primary">
-                <span>Sign in</span>
-              </Button>
-            </Link>
-          )}
+            }`}></div>
         </div>
       </div>
     </nav>

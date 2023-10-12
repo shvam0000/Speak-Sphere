@@ -1,7 +1,6 @@
-// splitting into FE and BE
 //@ts-nocheck
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './bot.css';
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import {
@@ -12,14 +11,14 @@ import {
   MessageInput,
   TypingIndicator,
 } from '@chatscope/chat-ui-kit-react';
-
-// const systemMessage = {
-//   role: 'system',
-//   content:
-//     "Explain things like you're talking to a software professional with 2 years of experience.",
-// };
+import axios from 'axios';
 
 function Bot() {
+  const [name, setName] = useState<any>('');
+  const [age, setAge] = useState<any>('');
+  const [gender, setGender] = useState<any>('');
+  const [interests, setInterests] = useState<any>('');
+
   const [messages, setMessages] = useState([
     {
       message:
@@ -43,7 +42,6 @@ function Bot() {
 
     setIsTyping(true);
 
-    // Send the message to the Node.js middleware for processing
     sendMessageToMiddleware(message);
   };
 
@@ -98,14 +96,21 @@ function Bot() {
     }
   };
 
-  // useEffect(() => {
-  //   // Initial system message
-  //   sendMessageToMiddleware(systemMessage.content);
-  // }, []);
+  useEffect(() => {
+    axios
+      .get('http://localhost:8080/user')
+      .then((res) => {
+        setName(res.data.user[0].name);
+        setAge(res.data.user[0].age);
+        setGender(res.data.user[0].age);
+        setInterests(res.data.user[0].interests);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
-    <div className="App">
-      <div style={{ position: 'relative', height: '800px', width: '700px' }}>
+    <div className="App h-20">
+      <div style={{ position: 'relative', height: '600px', width: '700px' }}>
         <MainContainer>
           <ChatContainer>
             <MessageList
@@ -117,13 +122,6 @@ function Bot() {
               }>
               {messages.map((message, i) => (
                 <Message key={i} model={message}>
-                  {/* {message.sender == 'Bot' ? (
-                    <button
-                      className="bg-black p-10"
-                      onClick={() => translateMessage(message.message)}>
-                      Translate to English
-                    </button>
-                  ) : null} */}
                   {message.sender === 'user' ? (
                     <button
                       className="bg-black p-10"
