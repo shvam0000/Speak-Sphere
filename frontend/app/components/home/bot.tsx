@@ -14,10 +14,31 @@ import {
 import axios from 'axios';
 
 function Bot() {
-  const [name, setName] = useState<any>('');
-  const [age, setAge] = useState<any>('');
-  const [gender, setGender] = useState<any>('');
-  const [interests, setInterests] = useState<any>('');
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+  const [gender, setGender] = useState('');
+  const [interests, setInterests] = useState('');
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:8080/user')
+      .then((res) => {
+        const userData = res.data.user[0];
+        setName(userData.name);
+        setAge(userData.age);
+        setGender(userData.gender);
+        setInterests(userData.interests);
+        const personalizedMessage = getPersonalizedMessage(userData);
+        setMessages([
+          {
+            message: personalizedMessage,
+            sentTime: 'just now',
+            sender: 'Bot',
+          },
+        ]);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const [messages, setMessages] = useState([
     {
@@ -85,9 +106,9 @@ function Bot() {
 
       const translatedMessage = {
         message: translation,
-        direction: 'incoming', // Incoming message from the bot
+        direction: 'incoming',
         sender: 'Bot',
-        isTranslated: true, // Add a flag to indicate it's a translated message
+        isTranslated: true,
       };
 
       setMessages((prevMessages) => [...prevMessages, translatedMessage]);
@@ -96,17 +117,30 @@ function Bot() {
     }
   };
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:8080/user')
-      .then((res) => {
-        setName(res.data.user[0].name);
-        setAge(res.data.user[0].age);
-        setGender(res.data.user[0].age);
-        setInterests(res.data.user[0].interests);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  // Function to generate personalized bot messages
+  const getPersonalizedMessage = (userData) => {
+    let personalizedMessage = 'Hola';
+
+    if (userData.name) {
+      personalizedMessage += `, ${userData.name}!`;
+    }
+
+    // if (userData.age) {
+    //   personalizedMessage += `. I see you're ${userData.age} years old`;
+    // }
+
+    // if (userData.gender) {
+    //   personalizedMessage += ` and identify as ${userData.gender}`;
+    // }
+
+    if (userData.interests) {
+      personalizedMessage += `. ¿De qué quieres hablar, ${userData.interests}?`;
+    }
+
+    // personalizedMessage += '! How can I help you today?';
+
+    return personalizedMessage;
+  };
 
   return (
     <div className="App h-20">
@@ -122,13 +156,11 @@ function Bot() {
               }>
               {messages.map((message, i) => (
                 <Message key={i} model={message}>
-                  {message.sender === 'user' ? (
-                    <button
-                      className="bg-black p-10"
-                      onClick={() => translateMessage(message.message)}>
-                      Translate to English
-                    </button>
-                  ) : null}
+                  <button
+                    className="bg-black p-10"
+                    onClick={() => translateMessage(message.message)}>
+                    Translate to English
+                  </button>
                 </Message>
               ))}
             </MessageList>

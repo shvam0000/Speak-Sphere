@@ -24,7 +24,7 @@ mongoose
   .then(() => console.log('Database connected!'))
   .catch((err) => console.log(err));
 
-const API_KEY = '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';
+const API_KEY = 'YOUR_API_KEY'; // Replace with your API key
 
 app.post('/api/chat', async (req, res) => {
   const { message } = req.body;
