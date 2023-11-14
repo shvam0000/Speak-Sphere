@@ -19,6 +19,7 @@ function Bot() {
   const [gender, setGender] = useState('');
   const [interests, setInterests] = useState('');
 
+  //! Retrieve user data from database
   useEffect(() => {
     axios
       .get('http://localhost:8080/user')
@@ -78,40 +79,14 @@ function Bot() {
 
       const data = await response.json();
 
-      const newMessage = {
-        message,
-        direction: 'outgoing',
-        sender: 'user',
+      const botMessage = {
+        message: data.response,
+        sender: 'Bot',
       };
 
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        newMessage,
-        {
-          message: data.response,
-          sender: 'Bot',
-        },
-      ]);
+      setMessages((prevMessages) => [...prevMessages, botMessage]);
 
       setIsTyping(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const translateMessage = async (message) => {
-    try {
-      // Use a translation API or service to translate the message to English
-      const translation = await translateToEnglish(message);
-
-      const translatedMessage = {
-        message: translation,
-        direction: 'incoming',
-        sender: 'Bot',
-        isTranslated: true,
-      };
-
-      setMessages((prevMessages) => [...prevMessages, translatedMessage]);
     } catch (error) {
       console.error(error);
     }
@@ -125,19 +100,9 @@ function Bot() {
       personalizedMessage += `, ${userData.name}!`;
     }
 
-    // if (userData.age) {
-    //   personalizedMessage += `. I see you're ${userData.age} years old`;
-    // }
-
-    // if (userData.gender) {
-    //   personalizedMessage += ` and identify as ${userData.gender}`;
-    // }
-
     if (userData.interests) {
       personalizedMessage += `. ¿De qué quieres hablar, ${userData.interests}?`;
     }
-
-    // personalizedMessage += '! How can I help you today?';
 
     return personalizedMessage;
   };
