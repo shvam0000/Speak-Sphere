@@ -12,12 +12,14 @@ import {
   TypingIndicator,
 } from '@chatscope/chat-ui-kit-react';
 import axios from 'axios';
+import ReactTooltip from 'react-tooltip';
 
 function Bot() {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
   const [interests, setInterests] = useState('');
+  const [hoveredMessage, setHoveredMessage] = useState(null);
 
   //! Retrieve user data from database
   useEffect(() => {
@@ -107,6 +109,14 @@ function Bot() {
     return personalizedMessage;
   };
 
+  const handleMouseOver = (message) => {
+    setHoveredMessage(message);
+  };
+
+  const handleMouseOut = () => {
+    setHoveredMessage(null);
+  };
+
   return (
     <div className="App h-20">
       <div style={{ position: 'relative', height: '600px', width: '700px' }}>
@@ -120,13 +130,22 @@ function Bot() {
                 ) : null
               }>
               {messages.map((message, i) => (
-                <Message key={i} model={message}>
-                  <button
-                    className="bg-black p-10"
-                    onClick={() => translateMessage(message.message)}>
-                    Translate to English
-                  </button>
-                </Message>
+                <div
+                  key={i}
+                  onMouseOver={() => handleMouseOver(message)}
+                  onMouseOut={handleMouseOut}>
+                  <div
+                    onMouseOver={() => handleMouseOver(message)}
+                    onMouseOut={handleMouseOut}>
+                    <Message model={message}>
+                      <button
+                        className="bg-black p-10"
+                        onClick={() => translateMessage(message.message)}>
+                        Translate to English
+                      </button>
+                    </Message>
+                  </div>
+                </div>
               ))}
             </MessageList>
             <MessageInput
@@ -136,6 +155,22 @@ function Bot() {
           </ChatContainer>
         </MainContainer>
       </div>
+
+      {hoveredMessage && (
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '40', // Adjust as needed
+            left: '40',
+            background: 'rgba(0, 0, 0, 0.6)',
+            color: 'white',
+            padding: '8px',
+            borderRadius: '4px',
+            zIndex: 1000,
+          }}>
+          {hoveredMessage.message}
+        </div>
+      )}
     </div>
   );
 }
