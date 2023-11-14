@@ -83,7 +83,9 @@ app.post('/translate', async (req, res) => {
       completion.choices[0].text
     ) {
       const textValue = completion.choices[0].text.trim();
-      res.status(200).json({ message: textValue });
+      res
+        .status(200)
+        .json({ message: `Translated to English - \n` + textValue });
       console.log('Translated text:', textValue);
     } else {
       console.error('Invalid response structure from OpenAI API');

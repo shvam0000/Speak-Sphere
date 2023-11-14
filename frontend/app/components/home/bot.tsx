@@ -101,15 +101,10 @@ function Bot() {
       personalizedMessage += `, ${userData.name}!`;
     }
 
-    if (userData.interests) {
-      personalizedMessage += `. ¿De qué quieres hablar, ${userData.interests}?`;
-    }
+    personalizedMessage += ' ¿Cuales son tus intereses?';
 
     return personalizedMessage;
   };
-
-  // const [hoveredMessage, setHoveredMessage] = useState(null);
-  const [selectedWord, setSelectedWord] = useState(null);
 
   const handleMouseOver = (event, message) => {
     axios
@@ -126,22 +121,6 @@ function Bot() {
   const handleMouseOut = () => {
     setHoveredMessage(null);
   };
-
-  const handleTextSelect = () => {
-    const selection = window.getSelection();
-    if (selection && selection.toString().trim() !== '') {
-      setSelectedWord(selection.toString());
-    } else {
-      setSelectedWord(null);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('mouseup', handleTextSelect);
-    return () => {
-      document.removeEventListener('mouseup', handleTextSelect);
-    };
-  }, []);
 
   return (
     <div className="App h-20">
@@ -192,11 +171,6 @@ function Bot() {
             width: '300px',
           }}>
           {hoveredMessage}
-          {selectedWord && (
-            <div style={{ marginTop: '8px' }}>
-              Selected Word: <strong>{selectedWord}</strong>
-            </div>
-          )}
         </div>
       )}
     </div>
