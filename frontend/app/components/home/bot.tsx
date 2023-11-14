@@ -68,7 +68,7 @@ function Bot() {
 
   const sendMessageToMiddleware = async (message) => {
     try {
-      const response = await fetch('http://localhost:8080/api/chat', {
+      const response = await fetch('http://localhost:8080/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ function Bot() {
         ...prevMessages,
         newMessage,
         {
-          message: data.message,
+          message: data.response,
           sender: 'Bot',
         },
       ]);
