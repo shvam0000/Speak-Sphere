@@ -19,7 +19,7 @@ function Bot() {
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
   const [interests, setInterests] = useState('');
-  const [hoveredMessage, setHoveredMessage] = useState(null);
+  const [hoveredMessage, setHoveredMessage] = useState('');
 
   //! Retrieve user data from database
   useEffect(() => {
@@ -45,8 +45,7 @@ function Bot() {
 
   const [messages, setMessages] = useState([
     {
-      message:
-        "Hello, I'm Speak Sphere! How's your journey of learning Spanish going?!",
+      message: '¡Hola! Bienvenido a SpeakSphere, ¿de qué quieres hablar hoy?',
       sentTime: 'just now',
       sender: 'Bot',
     },
@@ -113,11 +112,15 @@ function Bot() {
   const [selectedWord, setSelectedWord] = useState(null);
 
   const handleMouseOver = (event, message) => {
-    setHoveredMessage({
-      ...message,
-      clientX: event.clientX,
-      clientY: event.clientY,
-    });
+    axios
+      .post('http://localhost:8080/translate', {
+        text: message.message,
+      })
+      .then((res) => {
+        const translatedMessage = res.data.message;
+        setHoveredMessage(translatedMessage);
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleMouseOut = () => {
@@ -159,9 +162,7 @@ function Bot() {
                   onMouseOut={handleMouseOut}
                   style={{ position: 'relative' }}>
                   <Message model={message}>
-                    <button
-                      className="bg-black p-10"
-                      onClick={() => translateMessage(message.message)}>
+                    <button className="bg-black p-10">
                       Translate to English
                     </button>
                   </Message>
@@ -180,15 +181,17 @@ function Bot() {
         <div
           style={{
             position: 'absolute',
-            top: hoveredMessage.clientY - 80, // Adjust as needed
-            left: hoveredMessage.clientX,
+            top: 100, // Adjust as needed
+            left: 0,
             background: 'rgba(0, 0, 0, 0.8)',
             color: 'white',
-            padding: '8px',
+            margin: '20px',
+            padding: '10px',
             borderRadius: '4px',
             zIndex: 1000,
+            width: '300px',
           }}>
-          {hoveredMessage.message}
+          {hoveredMessage}
           {selectedWord && (
             <div style={{ marginTop: '8px' }}>
               Selected Word: <strong>{selectedWord}</strong>

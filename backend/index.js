@@ -59,6 +59,42 @@ app.post('/chat', async (req, res) => {
   }
 });
 
+app.post('/translate', async (req, res) => {
+  const text = req.body.text;
+
+  if (!text) {
+    res.status(400).json({ error: 'Prompt missing' });
+    return;
+  }
+
+  try {
+    const completion = await openai.completions.create({
+      model: 'gpt-3.5-turbo-instruct',
+      prompt: `can you please translate this in english - ${text}`,
+      max_tokens: 100,
+      temperature: 0,
+    });
+
+    console.log('OpenAI API response:', completion); // Log the entire response
+
+    if (
+      completion.choices &&
+      completion.choices[0] &&
+      completion.choices[0].text
+    ) {
+      const textValue = completion.choices[0].text.trim();
+      res.status(200).json({ message: textValue });
+      console.log('Translated text:', textValue);
+    } else {
+      console.error('Invalid response structure from OpenAI API');
+      res.status(500).json({ error: 'An error occurred' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});
+
 //! USER
 app.post('/user', (req, res) => {
   const _user = new User({
