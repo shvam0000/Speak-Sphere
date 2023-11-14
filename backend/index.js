@@ -2,9 +2,10 @@ const OpenAI = require('openai');
 const mongoose = require('mongoose');
 const User = require('./models/user');
 const cors = require('cors');
+require('dotenv').config();
 
 const openai = new OpenAI({
-  apiKey: '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',
+  apiKey: process.env.APIKEY,
 });
 const express = require('express');
 const bodyParser = require('body-parser');
