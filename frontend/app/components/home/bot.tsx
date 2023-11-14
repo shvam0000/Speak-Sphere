@@ -109,13 +109,36 @@ function Bot() {
     return personalizedMessage;
   };
 
-  const handleMouseOver = (message) => {
-    setHoveredMessage(message);
+  // const [hoveredMessage, setHoveredMessage] = useState(null);
+  const [selectedWord, setSelectedWord] = useState(null);
+
+  const handleMouseOver = (event, message) => {
+    setHoveredMessage({
+      ...message,
+      clientX: event.clientX,
+      clientY: event.clientY,
+    });
   };
 
   const handleMouseOut = () => {
     setHoveredMessage(null);
   };
+
+  const handleTextSelect = () => {
+    const selection = window.getSelection();
+    if (selection && selection.toString().trim() !== '') {
+      setSelectedWord(selection.toString());
+    } else {
+      setSelectedWord(null);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mouseup', handleTextSelect);
+    return () => {
+      document.removeEventListener('mouseup', handleTextSelect);
+    };
+  }, []);
 
   return (
     <div className="App h-20">
@@ -132,19 +155,16 @@ function Bot() {
               {messages.map((message, i) => (
                 <div
                   key={i}
-                  onMouseOver={() => handleMouseOver(message)}
-                  onMouseOut={handleMouseOut}>
-                  <div
-                    onMouseOver={() => handleMouseOver(message)}
-                    onMouseOut={handleMouseOut}>
-                    <Message model={message}>
-                      <button
-                        className="bg-black p-10"
-                        onClick={() => translateMessage(message.message)}>
-                        Translate to English
-                      </button>
-                    </Message>
-                  </div>
+                  onMouseOver={(event) => handleMouseOver(event, message)}
+                  onMouseOut={handleMouseOut}
+                  style={{ position: 'relative' }}>
+                  <Message model={message}>
+                    <button
+                      className="bg-black p-10"
+                      onClick={() => translateMessage(message.message)}>
+                      Translate to English
+                    </button>
+                  </Message>
                 </div>
               ))}
             </MessageList>
@@ -160,15 +180,20 @@ function Bot() {
         <div
           style={{
             position: 'absolute',
-            bottom: '40', // Adjust as needed
-            left: '40',
-            background: 'rgba(0, 0, 0, 0.6)',
+            top: hoveredMessage.clientY - 80, // Adjust as needed
+            left: hoveredMessage.clientX,
+            background: 'rgba(0, 0, 0, 0.8)',
             color: 'white',
             padding: '8px',
             borderRadius: '4px',
             zIndex: 1000,
           }}>
           {hoveredMessage.message}
+          {selectedWord && (
+            <div style={{ marginTop: '8px' }}>
+              Selected Word: <strong>{selectedWord}</strong>
+            </div>
+          )}
         </div>
       )}
     </div>
