@@ -22,7 +22,7 @@ const Form = () => {
       interests,
     };
 
-    axios('http://52.91.53.9:8080/user', {
+    axios('https://52.91.53.9:8080/user', {
       method: 'POST',
       data: formData,
     })
@@ -57,22 +57,6 @@ const Form = () => {
           />
         </div>
         <div className="flex flex-wrap -mx-3 mb-6"></div>
-        <div className="w-full px-3">
-          <label
-            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            htmlFor="interests">
-            Interests
-          </label>
-          <input
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            id="interests"
-            type="text"
-            placeholder="Travel, Food, Sports, etc."
-            value={interests}
-            onChange={(e) => setInterests(e.target.value)}
-            required
-          />
-        </div>
         <button
           className="uppercase flex justify-center ml-2 tracking-wide text-gray-700 bg-gray-200 px-4 py-2 rounded-lg text-xs font-bold mb-2"
           type="submit">
