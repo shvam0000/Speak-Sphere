@@ -21,7 +21,7 @@ const ChatBot = () => {
         ...messageHistory,
         { text: inputMessage, isUser: true },
       ]);
-      axios('http://localhost:8080/converse', {
+      axios('http://52.91.53.9:8080/converse', {
         method: 'POST',
         data: { input: inputMessage },
       })

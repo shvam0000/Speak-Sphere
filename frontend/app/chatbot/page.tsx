@@ -8,7 +8,7 @@ const Chatbot = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/user')
+      .get('http://52.91.53.9:8080/user')
       .then((res) => {
         setName(res.data.user[0].name);
       })

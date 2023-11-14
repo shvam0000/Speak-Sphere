@@ -24,7 +24,7 @@ function Bot() {
   //! Retrieve user data from database
   useEffect(() => {
     axios
-      .get('http://localhost:8080/user')
+      .get('http://52.91.53.9:8080/user')
       .then((res) => {
         const userData = res.data.user[0];
         setName(userData.name);
@@ -70,7 +70,7 @@ function Bot() {
 
   const sendMessageToMiddleware = async (message) => {
     try {
-      const response = await fetch('http://localhost:8080/chat', {
+      const response = await fetch('http://52.91.53.9:8080/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -108,7 +108,7 @@ function Bot() {
 
   const handleMouseOver = (event, message) => {
     axios
-      .post('http://localhost:8080/translate', {
+      .post('http://52.91.53.9:8080/translate', {
         text: message.message,
       })
       .then((res) => {
