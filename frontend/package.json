@@ -14,7 +14,8 @@
     "axios": "^1.5.1",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "react-tooltip": "^5.23.0"
   },
   "devDependencies": {
     "@types/node": "latest",
