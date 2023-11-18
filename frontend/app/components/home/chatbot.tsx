@@ -21,7 +21,7 @@ const ChatBot = () => {
         ...messageHistory,
         { text: inputMessage, isUser: true },
       ]);
-      axios('https://52.91.53.9:8080/converse', {
+      axios('http://52.91.53.9:8080/converse', {
         method: 'POST',
         data: { input: inputMessage },
       })
@@ -45,7 +45,7 @@ const ChatBot = () => {
           <div className="flex justify-center items-center ">
             {/* Logo comes here */}
             <img
-              src="https://cdn-icons-png.flaticon.com/512/2040/2040946.png"
+              src="http://cdn-icons-png.flaticon.com/512/2040/2040946.png"
               alt="logo"
               className="w-8"
             />

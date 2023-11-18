@@ -22,7 +22,7 @@ const Form = () => {
       interests,
     };
 
-    axios('https://52.91.53.9:8080/user', {
+    axios('http://52.91.53.9:8080/user', {
       method: 'POST',
       data: formData,
     })
