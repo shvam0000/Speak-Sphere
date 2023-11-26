@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Logo } from '@/app/utils/icons';
+import { Button } from '.';
 
 export default function NavBar() {
   const [navbar, setNavbar] = useState(false);
@@ -11,11 +12,11 @@ export default function NavBar() {
       <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
         <div>
           <div className="flex items-center justify-between py-3">
-            <figure className="text-primary-orange hover:animate-spin text-4xl px-2">
+            <figure className="text-primary-blue font-bold text-4xl px-2">
               <Logo />
             </figure>
             <Link href="/">
-              <h2 className="text-3xl font-bold text-primary-black">
+              <h2 className="text-3xl font-medium text-primary-black">
                 Speak Sphere
               </h2>
             </Link>
@@ -54,11 +55,12 @@ export default function NavBar() {
             </div>
           </div>
         </div>
-        <div>
-          <div
-            className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
-              navbar ? 'block' : 'hidden'
-            }`}></div>
+        <div className="hidden md:flex items-center">
+          <Link href="/chatbot">
+            <Button type="primary">
+              <span>Get Started</span>
+            </Button>
+          </Link>
         </div>
       </div>
     </nav>
