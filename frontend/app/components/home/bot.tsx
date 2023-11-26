@@ -12,13 +12,8 @@ import {
   TypingIndicator,
 } from '@chatscope/chat-ui-kit-react';
 import axios from 'axios';
-import ReactTooltip from 'react-tooltip';
 
 function Bot() {
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [gender, setGender] = useState('');
-  const [interests, setInterests] = useState('');
   const [hoveredMessage, setHoveredMessage] = useState('');
 
   //! Retrieve user data from database
@@ -93,7 +88,6 @@ function Bot() {
     }
   };
 
-  // Function to generate personalized bot messages
   const getPersonalizedMessage = (userData) => {
     let personalizedMessage = 'Hola';
 

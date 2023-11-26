@@ -1,13 +1,11 @@
 'use client';
 import React, { useState } from 'react';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Heading from './heading';
 
 const Form = () => {
   const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [gender, setGender] = useState('');
   const [interests, setInterests] = useState('');
 
   const router = useRouter();
@@ -16,7 +14,6 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Create an object to store the form data
     const formData = {
       name,
       interests,
@@ -31,8 +28,6 @@ const Form = () => {
       })
       .catch((err) => console.error(err));
 
-    // Save the form data in session storage
-    // sessionStorage.setItem('formData', JSON.stringify(formData));
     router.replace('/chatbot');
   };
 
