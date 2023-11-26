@@ -1,13 +1,29 @@
+'use client';
+import { useState } from 'react';
+import { Button } from './components/shared';
 import { Bot, Brain, Learning, Personal } from './utils/icons';
-import Typewriter from 'typewriter-effect';
+import Modal from 'react-lean-modal';
+import { Form } from './components/landing';
 
 export default function Home() {
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const handleModal = () => {
+    setShowModal(!showModal);
+  };
+
   return (
     <div>
       <div className="h-80 w-screen bg-primary-blue flex">
-        <div className="w-1/2 flex justify-center items-center font-medium text-4xl text-primary-white p-10">
-          Your Personal Langauage Learning ChatBot!
+        <div className="w-1/2 p-10">
+          <span className="flex py-10 justify-center items-center font-medium text-4xl text-primary-white">
+            Your Personal Language Learning ChatBot!
+          </span>
+          <Button handleClick={handleModal} type="secondary">
+            <span>Get Started</span>
+          </Button>
         </div>
+
         <figure className="w-1/2 flex justify-center items-center text-primary-white text-9xl">
           <Bot />
         </figure>
@@ -37,6 +53,14 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Modal
+        enterAnimation="fade"
+        exitAnimation="fade"
+        timeout={250}
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}>
+        <Form />
+      </Modal>
     </div>
   );
 }

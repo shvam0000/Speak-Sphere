@@ -55,13 +55,13 @@ export default function NavBar() {
             </div>
           </div>
         </div>
-        <div className="hidden md:flex items-center">
+        {/* <div className="hidden md:flex items-center">
           <Link href="/chatbot">
             <Button type="primary">
               <span>Get Started</span>
             </Button>
           </Link>
-        </div>
+        </div> */}
       </div>
     </nav>
   );

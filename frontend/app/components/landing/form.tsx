@@ -38,16 +38,18 @@ const Form = () => {
 
   return (
     <div>
-      <form className="w-full max-w-lg" onSubmit={handleSubmit}>
-        <Heading />
-        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <form onSubmit={handleSubmit}>
+        <h1 className="font-medium text-2xl flex justify-center items-center">
+          Lets Get Started
+        </h1>
+        <div className="w-full md:w-1/2 px-3 md:mb-0">
           <label
-            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            className="block tracking-wide text-gray-700 text-medium font-bold mb-2"
             htmlFor="name">
-            Name
+            Your Name
           </label>
           <input
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            className="appearance-none block w-full bg-secondary-blue text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
             id="name"
             type="text"
             placeholder="Jane Doe"
@@ -56,9 +58,8 @@ const Form = () => {
             required
           />
         </div>
-        <div className="flex flex-wrap -mx-3 mb-6"></div>
         <button
-          className="uppercase flex justify-center ml-2 tracking-wide text-gray-700 bg-gray-200 px-4 py-2 rounded-lg text-xs font-bold mb-2"
+          className="ml-2 bg-primary-blue rounded-full px-4 py-2 my-3 text-primary-white"
           type="submit">
           Submit
         </button>
