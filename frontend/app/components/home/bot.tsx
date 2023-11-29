@@ -15,6 +15,7 @@ import axios from 'axios';
 
 function Bot() {
   const [hoveredMessage, setHoveredMessage] = useState('');
+  const [name, setName] = useState('');
 
   //! Retrieve user data from database
   useEffect(() => {
@@ -23,10 +24,7 @@ function Bot() {
       .then((res) => {
         const userData = res.data.user[0];
         setName(userData.name);
-        setAge(userData.age);
-        setGender(userData.gender);
-        setInterests(userData.interests);
-        const personalizedMessage = getPersonalizedMessage(userData);
+        const personalizedMessage = getPersonalizedMessage(userData.name);
         setMessages([
           {
             message: personalizedMessage,
@@ -88,11 +86,11 @@ function Bot() {
     }
   };
 
-  const getPersonalizedMessage = (userData) => {
+  const getPersonalizedMessage = (name) => {
     let personalizedMessage = 'Hola';
 
-    if (userData.name) {
-      personalizedMessage += `, ${userData.name}!`;
+    if (name) {
+      personalizedMessage += `, ${name}!`;
     }
 
     personalizedMessage += ' ¿Cuales son tus intereses?';
