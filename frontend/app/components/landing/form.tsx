@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import Heading from './heading';
 
 const Form = () => {
   const [name, setName] = useState('');
