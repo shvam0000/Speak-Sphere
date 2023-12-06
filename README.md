@@ -47,7 +47,7 @@ yarn dev
 
 ### Setup Backend
 
-Move to Frontend directory
+Move to Backend directory
 
 ```bash
 cd backend
