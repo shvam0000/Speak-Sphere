@@ -8,7 +8,7 @@ const Chatbot = () => {
 
   useEffect(() => {
     axios
-      .get('http://52.91.53.9:8080/user')
+      .get('https://sure-monthly-moose.ngrok-free.app/user')
       .then((res) => {
         setName(res.data.user[0].name);
       })

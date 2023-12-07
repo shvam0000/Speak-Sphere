@@ -18,7 +18,7 @@ const Form = () => {
       interests,
     };
 
-    axios('http://52.91.53.9:8080/user', {
+    axios('https://sure-monthly-moose.ngrok-free.app/user', {
       method: 'POST',
       data: formData,
     })

@@ -20,7 +20,7 @@ function Bot() {
   //! Retrieve user data from database
   useEffect(() => {
     axios
-      .get('http://52.91.53.9:8080/user')
+      .get('https://sure-monthly-moose.ngrok-free.app/user')
       .then((res) => {
         const userData = res.data.user[0];
         setName(userData.name);
@@ -63,13 +63,16 @@ function Bot() {
 
   const sendMessageToMiddleware = async (message) => {
     try {
-      const response = await fetch('http://52.91.53.9:8080/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message }),
-      });
+      const response = await fetch(
+        'https://sure-monthly-moose.ngrok-free.app/chat',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message }),
+        }
+      );
 
       const data = await response.json();
 
@@ -100,7 +103,7 @@ function Bot() {
 
   const handleMouseOver = (event, message) => {
     axios
-      .post('http://52.91.53.9:8080/translate', {
+      .post('https://sure-monthly-moose.ngrok-free.app/translate', {
         text: message.message,
       })
       .then((res) => {
