@@ -35,16 +35,12 @@ export default function Home() {
             <iframe
               src="https://giphy.com/embed/S97VgVcYw0upbqmX8H"
               width="200%"
-              height="100%"
+              height="200%"
               frameBorder="0"
               className="giphy-embed"
               allowFullScreen></iframe>
           </div>
         </figure>
-
-        {/* <figure className="w-1/2 flex justify-center items-center text-primary-pink text-9xl">
-          <Bot />
-        </figure> */}
       </div>
       <div className="py-10">
         <h1 className="font-semibold text-4xl flex justify-center pb-5">
@@ -80,7 +76,7 @@ export default function Home() {
           <div className="w-1/2 flex justify-center items-center text-lg font-medium ">
             Simply Enter your name to get started!
           </div>
-          <figure className="shadow-lg">
+          <figure className="shadow-lg mx-10">
             <Image src={GetStarted} height={900} width={900} alt="Name Input" />
           </figure>
         </div>
@@ -105,7 +101,7 @@ export default function Home() {
             Not sure what the reply means? Just hover over the message and see
             the english translation
           </div>
-          <figure className="shadow-lg">
+          <figure className="shadow-lg mx-10">
             <Image src={Translate} height={900} width={900} alt="Translate" />
           </figure>
         </div>
