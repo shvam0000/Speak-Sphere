@@ -63,16 +63,13 @@ function Bot() {
 
   const sendMessageToMiddleware = async (message) => {
     try {
-      const response = await fetch(
-        'https://sure-monthly-moose.ngrok-free.app/chat',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ message }),
-        }
-      );
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message }),
+      });
 
       const data = await response.json();
 
