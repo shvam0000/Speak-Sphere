@@ -18,7 +18,7 @@ const Form = () => {
       interests,
     };
 
-    axios('https://sure-monthly-moose.ngrok-free.app/user', {
+    axios(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
       method: 'POST',
       data: formData,
     })

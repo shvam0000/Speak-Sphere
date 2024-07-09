@@ -21,7 +21,7 @@ const ChatBot = () => {
         ...messageHistory,
         { text: inputMessage, isUser: true },
       ]);
-      axios('https://sure-monthly-moose.ngrok-free.app/converse', {
+      axios(`${process.env.NEXT_PUBLIC_API_URL}/converse`, {
         method: 'POST',
         data: { input: inputMessage },
       })

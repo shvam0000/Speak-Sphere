@@ -20,7 +20,7 @@ function Bot() {
   //! Retrieve user data from database
   useEffect(() => {
     axios
-      .get('https://sure-monthly-moose.ngrok-free.app/user')
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/user`)
       .then((res) => {
         const userData = res.data.user[0];
         setName(userData.name);
@@ -103,7 +103,7 @@ function Bot() {
 
   const handleMouseOver = (event, message) => {
     axios
-      .post('https://sure-monthly-moose.ngrok-free.app/translate', {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/translate`, {
         text: message.message,
       })
       .then((res) => {
