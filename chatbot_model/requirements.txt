@@ -1,2 +1,7 @@
 runpod
-huggingface_hub
+torch
+transformers
+accelerate
+sentencepiece
+protobuf
+pillow

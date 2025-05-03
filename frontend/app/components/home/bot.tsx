@@ -74,7 +74,7 @@ function Bot() {
       const data = await response.json();
 
       const fullResponse = data.response;
-      const trimmedResponse = fullResponse.split('\n\n\n\n')[1] || fullResponse;
+      const trimmedResponse = fullResponse.split('\n\n')[1] || fullResponse;
 
       const botMessage = {
         message: trimmedResponse,
