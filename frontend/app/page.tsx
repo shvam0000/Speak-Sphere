@@ -8,12 +8,15 @@ import Image from 'next/image';
 import GetStarted from '@/app/utils/images/get-started.png';
 import Chatbot from '@/app/utils/images/chatbot.png';
 import Translate from '@/app/utils/images/translate.png';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const [showModal, setShowModal] = useState<boolean>(false);
 
+  const router = useRouter();
+
   const handleModal = () => {
-    setShowModal(!showModal);
+    router.replace('/chatbot');
   };
 
   return (
