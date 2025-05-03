@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(cors());
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 mongoose.set('strictQuery', false);
 
@@ -54,12 +54,15 @@ app.post('/chat', async (req, res) => {
     );
 
     const jobId = runResponse.data.id;
-    const statusUrl = `https://api.runpod.ai/v2/hvvrxz0iscol13/status/${jobId}`;
+    const statusUrl = `${process.env.SPEAK_SPHERE_BOT_RUNPOD_URL.replace(
+      '/run',
+      ''
+    )}/status/${jobId}`;
 
     // Step 2: Poll status
     let result;
-    for (let i = 0; i < 20; i++) {
-      // max 10s wait
+    for (let i = 0; i < 60; i++) {
+      // Wait up to 30s
       const statusRes = await axios.get(statusUrl, {
         headers: {
           Authorization: `Bearer ${process.env.RUNPOD_API_KEY}`,
@@ -73,7 +76,7 @@ app.post('/chat', async (req, res) => {
         throw new Error('RunPod job failed');
       }
 
-      await new Promise((r) => setTimeout(r, 500)); // wait 0.5s
+      await new Promise((r) => setTimeout(r, 500)); // 0.5s wait
     }
 
     if (!result) {
