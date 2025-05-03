@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(cors());
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 mongoose.set('strictQuery', false);
 
