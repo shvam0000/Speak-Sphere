@@ -68,21 +68,24 @@ function Bot() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({ input: { message } }),
       });
 
       const data = await response.json();
 
+      const fullResponse = data.response;
+      const trimmedResponse = fullResponse.split('\n\n\n\n')[1] || fullResponse;
+
       const botMessage = {
-        message: data.response,
+        message: trimmedResponse,
         sender: 'Bot',
       };
 
       setMessages((prevMessages) => [...prevMessages, botMessage]);
-
       setIsTyping(false);
     } catch (error) {
       console.error(error);
+      setIsTyping(false);
     }
   };
 
@@ -96,18 +99,6 @@ function Bot() {
     personalizedMessage += ' ¿Cuales son tus intereses?';
 
     return personalizedMessage;
-  };
-
-  const handleMouseOver = (event, message) => {
-    axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/translate`, {
-        text: message.message,
-      })
-      .then((res) => {
-        const translatedMessage = res.data.message;
-        setHoveredMessage(translatedMessage);
-      })
-      .catch((err) => console.log(err));
   };
 
   const handleMouseOut = () => {
@@ -129,7 +120,6 @@ function Bot() {
               {messages.map((message, i) => (
                 <div
                   key={i}
-                  onMouseOver={(event) => handleMouseOver(event, message)}
                   onMouseOut={handleMouseOut}
                   style={{ position: 'relative' }}>
                   <Message model={message}>
