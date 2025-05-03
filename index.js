@@ -54,7 +54,10 @@ app.post('/chat', async (req, res) => {
     );
 
     const jobId = runResponse.data.id;
-    const statusUrl = `https://api.runpod.ai/v2/hvvrxz0iscol13/status/${jobId}`;
+    const statusUrl = `${process.env.SPEAK_SPHERE_BOT_RUNPOD_URL.replace(
+      '/run',
+      ''
+    )}/status/${jobId}`;
 
     // Step 2: Poll status
     let result;
