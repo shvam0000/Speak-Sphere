@@ -58,8 +58,8 @@ app.post('/chat', async (req, res) => {
 
     // Step 2: Poll status
     let result;
-    for (let i = 0; i < 20; i++) {
-      // max 10s wait
+    for (let i = 0; i < 60; i++) {
+      // Wait up to 30s
       const statusRes = await axios.get(statusUrl, {
         headers: {
           Authorization: `Bearer ${process.env.RUNPOD_API_KEY}`,
@@ -73,7 +73,7 @@ app.post('/chat', async (req, res) => {
         throw new Error('RunPod job failed');
       }
 
-      await new Promise((r) => setTimeout(r, 500)); // wait 0.5s
+      await new Promise((r) => setTimeout(r, 500)); // 0.5s wait
     }
 
     if (!result) {
